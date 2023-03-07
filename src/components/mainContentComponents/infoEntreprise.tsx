@@ -2,13 +2,10 @@ const InfoEnt = (props: any) => {
   const state = props.state;
   const styles = props.styles;
   const handleInput = props.handleInput;
+  const changeForm = props.changeForm;
   return (
-    <fieldset
-      className={
-        "grid border-2 p-7 rounded border-gray-700 grid-cols-2 content-center gap-6"
-      }
-    >
-      <legend className="text-base font-semibold ">
+    <fieldset className={styles.fieldset}>
+      <legend className={styles.legend}>
         <u>INFORMATION SUR L'ENTREPRISE</u>
       </legend>
       <input
@@ -36,17 +33,17 @@ const InfoEnt = (props: any) => {
         value={state.forme_juridique}
       />
       <input
-        onChange={state.handleInput}
+        onChange={handleInput}
         name={"siege_sociale"}
-        className={state.styles.input}
+        className={styles.input}
         type={"text"}
         placeholder={"Siege sociale"}
         value={state.siege_sociale}
       />
       <input
-        onChange={state.handleInput}
+        onChange={handleInput}
         name={"activite_principale"}
-        className={state.styles.input + " col-span-2"}
+        className={styles.input + " col-span-2"}
         type={"text"}
         placeholder={"Activite principale de l'entreprise"}
         value={state.activite_principale}
@@ -100,7 +97,8 @@ const InfoEnt = (props: any) => {
           value={state.nom_gerant}
         />
         <button
-          type="submit"
+          name="next"
+          onClick={changeForm}
           className="tracking-wider bg-green-500 p-3 w-80 font-sans spacing font-bold text-white rounded"
         >
           SUIVANT
