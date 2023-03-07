@@ -1,18 +1,66 @@
 import { useState } from "react";
 import InfoEnt from "./mainContentComponents/infoEntreprise";
 import RefBanc from "./mainContentComponents/referenceBancairs";
+import RefComr from "./mainContentComponents/referenceCommerciales";
+import Interlocuteur from "./mainContentComponents/interlocuteur";
+import PieceJoindre from "./mainContentComponents/pieceJoindre";
 
 const MainContent = () => {
   const [form, setForm] = useState(0);
   const [state, setState] = useState({
-    raison_sociale: "",
-    annee_creation: "",
-    forme_juridique: "",
-    activite_principale: "",
-    siege_sociale: "",
-    groupe: "false",
-    maison_mere: "",
-    nom_gerant: "",
+    info_entreprise: {
+      raison_sociale: "",
+      annee_creation: "",
+      forme_juridique: "",
+      activite_principale: "",
+      siege_sociale: "",
+      groupe: "false",
+      maison_mere: "",
+      nom_gerant: "",
+    },
+    banques: {
+      banque1: {
+        nom_banque: "",
+        contact_banque: "",
+        telephone: "",
+      },
+      banque2: {
+        nom_banque: "",
+        contact_banque: "",
+        telephone: "",
+      },
+      banque3: {
+        nom_banque: "",
+        contact_banque: "",
+        telephone: "",
+      },
+    },
+    ref_commerciales: {
+      ref1: {
+        nom_entreprise: "",
+        contact_entreprise: "",
+        telephone: "",
+        date_debut_relation: "",
+      },
+      ref2: {
+        nom_entreprise: "",
+        contact_entreprise: "",
+        telephone: "",
+        date_debut_relation: "",
+      },
+      ref3: {
+        nom_entreprise: "",
+        contact_entreprise: "",
+        telephone: "",
+        date_debut_relation: "",
+      },
+    },
+    interlocuteur: {
+      npm_interlocuteur: "",
+      telephone: "",
+      fonction: "",
+      adresse_mail: "",
+    },
   });
 
   const changeForm = (e: any) => {
@@ -28,32 +76,93 @@ const MainContent = () => {
     event.preventDefault();
   };
 
-  const handleInput = (event: any) => {
-    var name = event.target.name;
-    var value = event.target.value;
-    setState((prevState) => {
+  const handleInputInfoEnt = (event: any) => {
+    let name = event.target.name;
+    let value = event.target.value;
+    setState((prevState: any) => {
       if (name == "groupe") {
         return {
           ...prevState,
-          [name]: value,
-          maison_mere: value == "false" ? "" : prevState.maison_mere,
+          info_entreprise: {
+            ...prevState.info_entreprise,
+            [name]: value,
+            maison_mere:
+              value == "false" ? "" : prevState.info_entreprise.maison_mere,
+          },
         };
       }
       return {
         ...prevState,
-        [name]: value,
+        info_entreprise: {
+          ...prevState.info_entreprise,
+          [name]: value,
+        },
       };
     });
   };
+
+  const handleInputBanque = (event: any) => {
+    let name = event.target.name;
+    let value = event.target.value;
+    let data = event.target.getAttribute("data-id");
+    let banque = `banque${data}`;
+    setState((prevState: any) => {
+      return {
+        ...prevState,
+        banques: {
+          ...prevState.banques,
+          [banque]: {
+            ...prevState.banques[banque],
+            [name]: value,
+          },
+        },
+      };
+    });
+  };
+
+  const handleInputCommerciale = (event: any) => {
+    let name = event.target.name;
+    let value = event.target.value;
+    let data = event.target.getAttribute("data-id");
+    let ref = `ref${data}`;
+    setState((prevState: any) => {
+      return {
+        ...prevState,
+        ref_commerciales: {
+          ...prevState.ref_commerciales,
+          [ref]: {
+            ...prevState.ref_commerciales[ref],
+            [name]: value,
+          },
+        },
+      };
+    });
+  };
+
+  const handleInputInterlocuteur = (event: any) => {
+    let name = event.target.name;
+    let value = event.target.value;
+    setState((prevState: any) => {
+      return {
+        ...prevState,
+        interlocuteur: {
+          ...prevState.interlocuteur,
+          [name]: value,
+        },
+      };
+    });
+  };
+
   const styles = {
-    input: "border-gray-700  border-2 rounded p-2 text-sm",
+    input:
+      "border-gray-700  border-2 rounded p-2 text-sm placeholder:font-bold",
     fieldset:
       "grid border-2 p-7 rounded border-gray-700 grid-cols-2 content-center gap-6",
     legend: "text-base font-semibold",
   };
 
   return (
-    <section className="flex place-content-center">
+    <section className="flex place-content-center relative h-full">
       <form
         className="lg:w-2/3 md:w-3/4 sm:w-11/12"
         onSubmit={handleSubmit}
@@ -65,15 +174,36 @@ const MainContent = () => {
         </h1>
         {form == 0 ? (
           <InfoEnt
-            state={state}
+            state={state.info_entreprise}
             styles={styles}
-            handleInput={handleInput}
+            handleInput={handleInputInfoEnt}
             changeForm={changeForm}
           />
         ) : form == 1 ? (
-          <RefBanc state={state} />
+          <RefBanc
+            state={state.banques}
+            styles={styles}
+            handleInput={handleInputBanque}
+            changeForm={changeForm}
+          />
+        ) : form == 2 ? (
+          <RefComr
+            state={state.ref_commerciales}
+            styles={styles}
+            handleInput={handleInputCommerciale}
+            changeForm={changeForm}
+          />
+        ) : form == 3 ? (
+          <Interlocuteur
+            state={state.interlocuteur}
+            styles={styles}
+            handleInput={handleInputInterlocuteur}
+            changeForm={changeForm}
+          />
+        ) : form == 4 ? (
+          <PieceJoindre state={state} styles={styles} changeForm={changeForm} />
         ) : (
-          <h1>Lol</h1>
+          <></>
         )}
       </form>
     </section>

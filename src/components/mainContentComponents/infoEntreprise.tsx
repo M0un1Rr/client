@@ -48,9 +48,25 @@ const InfoEnt = (props: any) => {
         placeholder={"Activite principale de l'entreprise"}
         value={state.activite_principale}
       />
+      <input
+        onChange={handleInput}
+        name={"ice"}
+        className={styles.input}
+        type={"text"}
+        placeholder={"ICE"}
+        value={state.ice}
+      />
+      <input
+        onChange={handleInput}
+        name={"rc"}
+        className={styles.input}
+        type={"text"}
+        placeholder={"RC"}
+        value={state.rc}
+      />
       <fieldset className="p-2 col-span-2 border border-gray-400 rounded">
         <legend className={"font-semibold"}>Appartenance a un groupe:</legend>
-        <div>
+        <div className="">
           <input
             onChange={handleInput}
             className="p-3"
@@ -71,7 +87,9 @@ const InfoEnt = (props: any) => {
             onChange={handleInput}
             name={"maison_mere"}
             className={
-              styles.input + " w-full" + (state.groupe == "false" && " hidden")
+              styles.input +
+              " ml-20 w-1/2 w-full" +
+              (state.groupe == "false" && " hidden")
             }
             type={"text"}
             placeholder={"Maison mere"}
@@ -99,7 +117,7 @@ const InfoEnt = (props: any) => {
         <button
           name="next"
           onClick={changeForm}
-          className="tracking-wider bg-green-500 p-3 w-80 font-sans spacing font-bold text-white rounded"
+          className="tracking-wider bg-green_hues-600 p-3 w-80 font-sans spacing font-bold text-white rounded"
         >
           SUIVANT
         </button>

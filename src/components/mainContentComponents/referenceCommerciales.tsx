@@ -1,50 +1,62 @@
 import { useState } from "react";
 
-const RefBanc = (props: any) => {
+const RefComr = (props: any) => {
   const state = props.state;
   const styles = props.styles;
   const handleInput = props.handleInput;
   const changeForm = props.changeForm;
 
-  const banks = [1, 2, 3];
+  const commerciales = [1, 2, 3];
 
   return (
-    <fieldset className={styles.fieldset + " grid-cols-3 max-lg:grid-cols-1"}>
+    <fieldset className={styles.fieldset + " grid-cols-3"}>
       <legend className={styles.legend}>
-        <u>REFERENCES BANCAIRS</u>
+        <u>REFERENCES COMMERCIALES</u>
       </legend>
-      {banks.map((bank) => (
-        <div className="flex flex-col gap-3" key={bank}>
-          <h1 className="font-medium ">Banque {bank} :</h1>
+      {commerciales.map((commerciale) => (
+        <div className="flex flex-col gap-3" key={commerciale}>
+          <h1 className="font-medium ">
+            Entreprise {commerciale} :<i className="text-red-600">*</i>
+          </h1>
           <input
-            data-id={bank}
+            data-id={commerciale}
             onChange={handleInput}
-            name={"nom_banque"}
+            name={"nom_entreprise"}
             className={styles.input}
             type={"text"}
-            placeholder={"Nom Banque"}
+            placeholder={"Nom Entreprise"}
             data-s
-            value={state.nom_banque}
+            value={state.nom_entreprise}
             required
           />
           <input
-            data-id={bank}
+            data-id={commerciale}
             onChange={handleInput}
-            name={"contact_banque"}
+            name={"contact_Entreprise"}
             className={styles.input}
             type={"text"}
             placeholder={"Nom du contact"}
-            value={state.contact_banque}
+            value={state.contact_entreprise}
             required
           />
           <input
-            data-id={bank}
+            data-id={commerciale}
             onChange={handleInput}
             name={"telephone"}
             className={styles.input}
             type={"text"}
             placeholder={"Telephone"}
             value={state.telephone}
+            required
+          />
+          <input
+            data-id={commerciale}
+            onChange={handleInput}
+            name={"date_debut_relation"}
+            className={styles.input}
+            type={"text"}
+            placeholder={"Date Debut de Relation"}
+            value={state.date_debut_relation}
             required
           />
         </div>
@@ -69,4 +81,4 @@ const RefBanc = (props: any) => {
   );
 };
 
-export default RefBanc;
+export default RefComr;
