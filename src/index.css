@@ -12,3 +12,9 @@ body,
   height: 100%;
   width: 100%;
 }
+
+body {
+  background: image("assets/MESK\ \(1\).png");
+  height: 100vh;
+  border-image-repeat: repeat;
+}

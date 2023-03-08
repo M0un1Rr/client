@@ -513,6 +513,18 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .absolute {
   position: absolute;
 }
@@ -541,6 +553,10 @@ video {
   margin-left: 5rem;
 }
 
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
 .flex {
   display: flex;
 }
@@ -555,6 +571,10 @@ video {
 
 .h-10 {
   height: 2.5rem;
+}
+
+.h-8 {
+  height: 2rem;
 }
 
 .h-\[50px\] {
@@ -573,6 +593,10 @@ video {
   width: 2.5rem;
 }
 
+.w-8 {
+  width: 2rem;
+}
+
 .w-80 {
   width: 20rem;
 }
@@ -587,6 +611,16 @@ video {
 
 .flex-1 {
   flex: 1 1 0%;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
 }
 
 .cursor-pointer {
@@ -689,6 +723,11 @@ video {
   border-color: rgb(93 190 163 / var(--tw-border-opacity));
 }
 
+.border-red-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(220 38 38 / var(--tw-border-opacity));
+}
+
 .bg-green_hues-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(90 219 181 / var(--tw-bg-opacity));
@@ -702,6 +741,10 @@ video {
 .bg-green_hues-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(93 190 163 / var(--tw-bg-opacity));
+}
+
+.fill-blue-600 {
+  fill: #2563eb;
 }
 
 .p-10 {
@@ -768,6 +811,11 @@ video {
   color: rgb(29 78 216 / var(--tw-text-opacity));
 }
 
+.text-gray-200 {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+
 .text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
@@ -793,6 +841,12 @@ body,
   width: 100%;
 }
 
+body {
+  background: image("assets/MESK\ \(1\).png");
+  height: 100vh;
+  border-image-repeat: repeat;
+}
+
 .placeholder\:font-bold::-moz-placeholder {
   font-weight: 700;
 }
@@ -801,9 +855,10 @@ body,
   font-weight: 700;
 }
 
-@media not all and (min-width: 1024px) {
-  .max-lg\:grid-cols-1 {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
+@media (prefers-color-scheme: dark) {
+  .dark\:text-gray-600 {
+    --tw-text-opacity: 1;
+    color: rgb(75 85 99 / var(--tw-text-opacity));
   }
 }
 

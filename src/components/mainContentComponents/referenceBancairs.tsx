@@ -6,10 +6,36 @@ const RefBanc = (props: any) => {
   const handleInput = props.handleInput;
   const changeForm = props.changeForm;
 
+  const [maxDate, setMaxDate] = useState(getFormattedDate());
+
+  const changeFormMiddleWare = (e: any) => {
+    let errors = false;
+    for (let x in state) {
+      for (let y in state[x]) {
+        let element = document.querySelector(`input[name="${y}"]`);
+        if (state[x][y] == "") {
+          element?.classList.add("border-red-600");
+          errors = true;
+        } else {
+          element?.classList.remove("border-red-600");
+        }
+      }
+    }
+    if (!errors) changeForm(e);
+  };
+
+  function getFormattedDate() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
   const banks = [1, 2, 3];
 
   return (
-    <fieldset className={styles.fieldset + " grid-cols-3 max-lg:grid-cols-1"}>
+    <fieldset className={styles.fieldset + " grid-cols-3 "}>
       <legend className={styles.legend}>
         <u>REFERENCES BANCAIRS</u>
       </legend>
@@ -19,32 +45,31 @@ const RefBanc = (props: any) => {
           <input
             data-id={bank}
             onChange={handleInput}
-            name={"nom_banque"}
+            name={`nom_banque${bank}`}
             className={styles.input}
             type={"text"}
             placeholder={"Nom Banque"}
-            data-s
-            value={state.nom_banque}
+            value={state[`banque${bank}`][`nom_banque${bank}`]}
             required
           />
           <input
             data-id={bank}
             onChange={handleInput}
-            name={"contact_banque"}
+            name={`contact_banque${bank}`}
             className={styles.input}
             type={"text"}
             placeholder={"Nom du contact"}
-            value={state.contact_banque}
+            value={state[`banque${bank}`][`contact_banque${bank}`]}
             required
           />
           <input
             data-id={bank}
             onChange={handleInput}
-            name={"telephone"}
+            name={`telephone${bank}`}
             className={styles.input}
             type={"text"}
             placeholder={"Telephone"}
-            value={state.telephone}
+            value={state[`banque${bank}`][`telephone${bank}`]}
             required
           />
         </div>
@@ -59,7 +84,7 @@ const RefBanc = (props: any) => {
         </button>
         <button
           name="next"
-          onClick={changeForm}
+          onClick={changeFormMiddleWare}
           className="tracking-wider bg-green_hues-600 p-3 w-80 font-sans spacing font-bold text-white rounded"
         >
           SUIVANT

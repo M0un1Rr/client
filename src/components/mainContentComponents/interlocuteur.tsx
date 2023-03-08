@@ -3,6 +3,22 @@ const Interlocuteur = (props: any) => {
   const styles = props.styles;
   const handleInput = props.handleInput;
   const changeForm = props.changeForm;
+
+  const changeFormMiddleWare = (e: any) => {
+    let errors = false;
+    for (let x in state) {
+      let element = document.querySelector(`input[name="${x}"]`);
+
+      if (state[x] == "") {
+        element?.classList.add("border-red-600");
+        errors = true;
+      } else {
+        element?.classList.remove("border-red-600");
+      }
+    }
+    if (!errors) changeForm(e);
+  };
+
   return (
     <fieldset className={styles.fieldset}>
       <legend className={styles.legend}>
@@ -50,7 +66,7 @@ const Interlocuteur = (props: any) => {
         </button>
         <button
           name="next"
-          onClick={changeForm}
+          onClick={changeFormMiddleWare}
           className="tracking-wider bg-green_hues-600 p-3 w-80 font-sans spacing font-bold text-white rounded"
         >
           SUIVANT

@@ -1,70 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InfoEnt from "./mainContentComponents/infoEntreprise";
 import RefBanc from "./mainContentComponents/referenceBancairs";
 import RefComr from "./mainContentComponents/referenceCommerciales";
 import Interlocuteur from "./mainContentComponents/interlocuteur";
 import PieceJoindre from "./mainContentComponents/pieceJoindre";
 
-const MainContent = () => {
+const MainContent = (props: any) => {
   const [form, setForm] = useState(0);
-  const [state, setState] = useState({
-    info_entreprise: {
-      raison_sociale: "",
-      annee_creation: "",
-      forme_juridique: "",
-      activite_principale: "",
-      siege_sociale: "",
-      groupe: "false",
-      maison_mere: "",
-      nom_gerant: "",
-    },
-    banques: {
-      banque1: {
-        nom_banque: "",
-        contact_banque: "",
-        telephone: "",
-      },
-      banque2: {
-        nom_banque: "",
-        contact_banque: "",
-        telephone: "",
-      },
-      banque3: {
-        nom_banque: "",
-        contact_banque: "",
-        telephone: "",
-      },
-    },
-    ref_commerciales: {
-      ref1: {
-        nom_entreprise: "",
-        contact_entreprise: "",
-        telephone: "",
-        date_debut_relation: "",
-      },
-      ref2: {
-        nom_entreprise: "",
-        contact_entreprise: "",
-        telephone: "",
-        date_debut_relation: "",
-      },
-      ref3: {
-        nom_entreprise: "",
-        contact_entreprise: "",
-        telephone: "",
-        date_debut_relation: "",
-      },
-    },
-    interlocuteur: {
-      nom_interlocuteur: "",
-      telephone: "",
-      fonction: "",
-      adresse_mail: "",
-    },
-    fichiers: [],
-  });
+  const [state, setState] = useState(props.state);
+  const updateState = props.updateState;
 
-  console.log(state.fichiers);
+  console.log(state.info_entreprise);
 
   function addFiles(newFiles: File[]) {
     setState((prevState: any) => ({
@@ -73,10 +19,10 @@ const MainContent = () => {
     }));
   }
 
-  function removeFile(fileToRemove: File) {
-    setState((prevState) => ({
+  function removeFile(fileToRemove: any) {
+    setState((prevState: any) => ({
       ...prevState,
-      fichiers: prevState.fichiers.filter((file) => file !== fileToRemove),
+      fichiers: prevState.fichiers.filter((file: any) => file !== fileToRemove),
     }));
   }
 
@@ -178,6 +124,10 @@ const MainContent = () => {
     legend: "text-base font-semibold",
   };
 
+  useEffect(() => {
+    updateState(state);
+  }, [state]);
+
   return (
     <section className="flex place-content-center relative h-full">
       <form
@@ -224,6 +174,7 @@ const MainContent = () => {
             changeForm={changeForm}
             addFiles={addFiles}
             removeFile={removeFile}
+            handleSubmit={handleSubmit}
           />
         ) : (
           <></>
