@@ -1,35 +1,64 @@
-import React, { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+import { useRef, useState, ChangeEvent, DragEvent } from "react";
 import Icon from "./svg";
 
 function MyDropzone() {
-  const onDrop = useCallback((acceptedFiles: any) => {
-    acceptedFiles.forEach((file: any) => {
-      const reader = new FileReader();
+  const [files, setFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  console.log(files);
+  function handleFileSelect(event: ChangeEvent<HTMLInputElement>) {
+    const fileList = event.target.files;
+    if (fileList) {
+      setFiles((prevFiles) => [...prevFiles, ...Array.from(fileList)]);
+    }
+  }
 
-      reader.onabort = () => console.log("file reading was aborted");
-      reader.onerror = () => console.log("file reading has failed");
-      reader.onload = () => {
-        // Do whatever you want with the file contents
-        console.log(reader);
-        const binaryStr = reader.result;
-        console.log(binaryStr);
-      };
-      reader.readAsArrayBuffer(file);
-    });
-  }, []);
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  function handleDragOver(event: DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+  }
+
+  function handleDrop(event: DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    const fileList = event.dataTransfer.files;
+    if (fileList) {
+      setFiles((prevFiles) => [...prevFiles, ...Array.from(fileList)]);
+    }
+  }
+
+  function handleClick() {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  }
 
   return (
     <div
-      className="col-span-2 h-[200px] flex flex-col place-content-center place-items-center overflow-hidden border-4 border-green_hues-700 rounded-lg gap-2"
-      {...getRootProps()}
+      className="col-span-2 flex flex-col place-content-center place-items-center overflow-hidden border-4 border-green_hues-700 rounded-lg gap-2 p-10"
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+      onClick={handleClick}
     >
-      <div className="w-[100px] h-[100px]">
+      <div className="w-[50px] h-[50px]">
         <Icon />
       </div>
-      <input className="p-3" {...getInputProps()} />
-      <p>Drag 'n' drop some files here, or click to select files</p>
+      <input
+        name="files"
+        type="file"
+        className="p-3"
+        multiple
+        hidden
+        onChange={handleFileSelect}
+        ref={fileInputRef}
+        accept=".pdf"
+      />
+      <p className="p-3 text-center">
+        Faites glisser et déposez des fichiers ici, ou cliquez pour sélectionner
+        des fichiers
+      </p>
+      <ul>
+        {files.map((file) => (
+          <li key={file.name}>{file.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }

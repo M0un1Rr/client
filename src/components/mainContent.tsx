@@ -61,6 +61,9 @@ const MainContent = () => {
       fonction: "",
       adresse_mail: "",
     },
+    fichiers: {
+      
+    }
   });
 
   const changeForm = (e: any) => {
