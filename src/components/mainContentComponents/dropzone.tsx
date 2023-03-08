@@ -54,30 +54,32 @@ function MyDropzone(props: any) {
 
   return (
     <div className="col-span-2 flex flex-col place-content-center place-items-center overflow-hidden border-4 border-black rounded-lg gap-2 p-10 relative">
-      <div
-        className="col-span-2 flex flex-col place-content-center place-items-center overflow-hidden border-4 border-green_hues-700 rounded-lg gap-2 p-10 relative"
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-        onClick={handleClick}
-      >
-        <div className="w-[50px] h-[50px]">
-          <Icon />
+      {files.length >= 0 && files.length < 2 && (
+        <div
+          className="col-span-2 flex flex-col place-content-center place-items-center overflow-hidden border-4 border-green_hues-700 rounded-lg gap-2 p-10 relative"
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+          onClick={handleClick}
+        >
+          <div className="w-[50px] h-[50px]">
+            <Icon />
+          </div>
+          <input
+            name="files"
+            type="file"
+            className="p-3"
+            multiple
+            hidden
+            onChange={handleFileSelect}
+            ref={fileInputRef}
+            accept=".pdf"
+          />
+          <p className="p-3 text-center">
+            Faites glisser et déposez des fichiers ici, ou cliquez pour
+            sélectionner des fichiers
+          </p>
         </div>
-        <input
-          name="files"
-          type="file"
-          className="p-3"
-          multiple
-          hidden
-          onChange={handleFileSelect}
-          ref={fileInputRef}
-          accept=".pdf"
-        />
-        <p className="p-3 text-center">
-          Faites glisser et déposez des fichiers ici, ou cliquez pour
-          sélectionner des fichiers
-        </p>
-      </div>
+      )}
       {files.map((file) => (
         <li className={"list-none"} key={file.name}>
           {file.name}{" "}
