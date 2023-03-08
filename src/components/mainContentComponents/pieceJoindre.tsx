@@ -2,6 +2,8 @@ import MyDropzone from "./dropzone";
 
 const PieceJoindre = (props: any) => {
   const state = props.state;
+  const removeFile = props.removeFile;
+  const addFiles = props.addFiles;
   const styles = props.styles;
   const handleInput = props.handleInput;
   const changeForm = props.changeForm;
@@ -11,10 +13,14 @@ const PieceJoindre = (props: any) => {
         <u>PIECE A JOINDRE</u>
       </legend>
       <div>
-        <p className="font-semibold">Derniere Liasse Fiscale</p>
-        <p className="font-semibold">Modele J</p>
+        <p className="font-semibold">
+          Derniere Liasse Fiscale <span className="text-red-600">*</span>
+        </p>
+        <p className="font-semibold">
+          Modele J <span className="text-red-600">*</span>
+        </p>
       </div>
-      <MyDropzone />
+      <MyDropzone state={state} addFiles={addFiles} removeFile={removeFile} />
       <div className="flex col-span-2 place-content-center gap-3">
         <button
           name="prev"

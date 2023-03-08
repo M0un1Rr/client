@@ -56,15 +56,29 @@ const MainContent = () => {
       },
     },
     interlocuteur: {
-      npm_interlocuteur: "",
+      nom_interlocuteur: "",
       telephone: "",
       fonction: "",
       adresse_mail: "",
     },
-    fichiers: {
-      
-    }
+    fichiers: [],
   });
+
+  console.log(state.fichiers);
+
+  function addFiles(newFiles: File[]) {
+    setState((prevState: any) => ({
+      ...prevState,
+      fichiers: [...prevState.fichiers, ...newFiles],
+    }));
+  }
+
+  function removeFile(fileToRemove: File) {
+    setState((prevState) => ({
+      ...prevState,
+      fichiers: prevState.fichiers.filter((file) => file !== fileToRemove),
+    }));
+  }
 
   const changeForm = (e: any) => {
     if (e.target.name == "next") {
@@ -204,7 +218,13 @@ const MainContent = () => {
             changeForm={changeForm}
           />
         ) : form == 4 ? (
-          <PieceJoindre state={state} styles={styles} changeForm={changeForm} />
+          <PieceJoindre
+            state={state.fichiers}
+            styles={styles}
+            changeForm={changeForm}
+            addFiles={addFiles}
+            removeFile={removeFile}
+          />
         ) : (
           <></>
         )}
