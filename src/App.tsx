@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/header";
 import MainContent from "./components/mainContent";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./components/errorPage";
+import Validation from "./components/formulaireComplet";
 
 function App() {
   const [state, setState] = useState({
@@ -63,6 +64,11 @@ function App() {
     },
     fichiers: [],
   });
+  const [completed, setCompleted] = useState(false);
+
+  const completedTrue = () => {
+    setCompleted(!completed);
+  };
 
   const updateState = (newState: any) => {
     setState(newState);
@@ -71,8 +77,25 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "",
-      element: <MainContent state={state} updateState={updateState} />,
+      element: (
+        <MainContent
+          state={state}
+          updateState={updateState}
+          completed={completed}
+          completedTrue={completedTrue}
+        />
+      ),
       errorElement: <ErrorPage />,
+    },
+    {
+      path: "/validation",
+      element: (
+        <Validation
+          state={state}
+          completed={completed}
+          completedTrue={completedTrue}
+        />
+      ),
     },
   ]);
 

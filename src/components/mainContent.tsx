@@ -9,8 +9,8 @@ const MainContent = (props: any) => {
   const [form, setForm] = useState(0);
   const [state, setState] = useState(props.state);
   const updateState = props.updateState;
-
-  console.log(state.info_entreprise);
+  const completed = props.completed;
+  const completedTrue = props.completedTrue;
 
   function addFiles(newFiles: File[]) {
     setState((prevState: any) => ({
@@ -124,10 +124,6 @@ const MainContent = (props: any) => {
     legend: "text-base font-semibold",
   };
 
-  useEffect(() => {
-    updateState(state);
-  }, [state]);
-
   return (
     <section className="flex place-content-center relative h-full">
       <form
@@ -175,6 +171,8 @@ const MainContent = (props: any) => {
             addFiles={addFiles}
             removeFile={removeFile}
             handleSubmit={handleSubmit}
+            completed={completed}
+            completedTrue={completedTrue}
           />
         ) : (
           <></>

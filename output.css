@@ -593,6 +593,10 @@ video {
   width: 2.5rem;
 }
 
+.w-2\/3 {
+  width: 66.666667%;
+}
+
 .w-8 {
   width: 2rem;
 }
@@ -759,6 +763,10 @@ video {
   padding: 0.75rem;
 }
 
+.p-4 {
+  padding: 1rem;
+}
+
 .p-5 {
   padding: 1.25rem;
 }
@@ -778,6 +786,11 @@ video {
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
 .text-base {
@@ -814,6 +827,11 @@ video {
 .text-gray-200 {
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+
+.text-green_hues-700 {
+  --tw-text-opacity: 1;
+  color: rgb(93 190 163 / var(--tw-text-opacity));
 }
 
 .text-red-600 {

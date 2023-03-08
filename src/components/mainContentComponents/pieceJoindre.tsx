@@ -9,6 +9,8 @@ const PieceJoindre = (props: any) => {
   const styles = props.styles;
   const handleInput = props.handleInput;
   const changeForm = props.changeForm;
+  const completed = props.completed;
+  const completedTrue = props.completedTrue;
 
   const [loading, setLoading] = useState(false);
   const handleSubmitMiddleWare = (e: any) => {
@@ -16,23 +18,21 @@ const PieceJoindre = (props: any) => {
       alert("Télécharger les deux fichiers");
       return;
     } else if (state.length == 2) {
+      let y = 0;
       for (let x in state) {
-        if (
-          state[x].name != "derniere_liasse_fiscale.pdf" &&
-          state[x].name != "modele_j.pdf"
-        ) {
-          alert(
-            `Respecter le format de nommage des fichiers:\n${state[x].name}`
-          );
-          return;
+        if (state[x].name == "derniere_liasse_fiscale.pdf") {
+          y = y + 1;
+        }
+        if (state[x].name == "modele_j.pdf") {
+          y = y + 2;
         }
       }
-    }    
-    loadingBar();
-  };
-
-  const loadingBar = () => {
+      if (y != 3) {
+        alert(`Respecter le format de nommage des fichiers:`);
+      }
+    }
     setLoading(true);
+    completedTrue();
   };
 
   return (
