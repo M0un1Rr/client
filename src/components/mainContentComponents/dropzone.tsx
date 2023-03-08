@@ -11,6 +11,7 @@ function MyDropzone() {
       reader.onerror = () => console.log("file reading has failed");
       reader.onload = () => {
         // Do whatever you want with the file contents
+        console.log(reader);
         const binaryStr = reader.result;
         console.log(binaryStr);
       };
