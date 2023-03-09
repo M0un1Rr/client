@@ -4,6 +4,7 @@ import RefBanc from "./mainContentComponents/referenceBancairs";
 import RefComr from "./mainContentComponents/referenceCommerciales";
 import Interlocuteur from "./mainContentComponents/interlocuteur";
 import PieceJoindre from "./mainContentComponents/pieceJoindre";
+import { useNavigate } from "react-router-dom";
 
 const MainContent = (props: any) => {
   const [form, setForm] = useState(0);
@@ -11,6 +12,7 @@ const MainContent = (props: any) => {
   const updateState = props.updateState;
   const completed = props.completed;
   const completedTrue = props.completedTrue;
+  const navigation = useNavigate();
 
   function addFiles(newFiles: File[]) {
     setState((prevState: any) => ({
@@ -123,15 +125,16 @@ const MainContent = (props: any) => {
       "grid border-2 p-7 rounded border-gray-700 grid-cols-2 content-center gap-6",
     legend: "text-base font-semibold",
   };
+  useEffect(() => {
+    updateState(state);
+  }, [state]);
+  useEffect(() => {
+    if (completed) navigation("/validation");
+  }, []);
 
   return (
     <section className="flex place-content-center relative h-full">
-      <form
-        className="lg:w-2/3 md:w-3/4 sm:w-11/12"
-        onSubmit={handleSubmit}
-        action="#"
-        method="POST"
-      >
+      <section className="w-11/12 sm:w-10/12 md:w-2/3">
         <h1 className="font-sans font-bold text-2xl text-center p-3 ">
           Fiche de Renseignement Client
         </h1>
@@ -177,7 +180,7 @@ const MainContent = (props: any) => {
         ) : (
           <></>
         )}
-      </form>
+      </section>
     </section>
   );
 };

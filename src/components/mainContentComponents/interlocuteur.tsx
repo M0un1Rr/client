@@ -20,9 +20,9 @@ const Interlocuteur = (props: any) => {
   };
 
   return (
-    <fieldset className={styles.fieldset}>
+    <fieldset className="flex flex-col  border-2 p-7 rounded border-gray-700 gap-6 sm:grid sm:grid-cols-2">
       <legend className={styles.legend}>
-        <u>INTERLOCUTEUR A JOINDRE AU SEIN DE L'ENTREPRISE</u>
+        <u>INTERLOCUTEUR</u>
       </legend>
       <input
         onChange={handleInput}
@@ -60,14 +60,14 @@ const Interlocuteur = (props: any) => {
         <button
           name="prev"
           onClick={changeForm}
-          className="tracking-wider bg-green_hues-700 p-3 w-80 font-sans spacing font-bold text-white rounded"
+          className="tracking-wider bg-green_hues-700 p-3 w-1/3 font-sans spacing font-bold text-white rounded"
         >
           PRECEDENT
         </button>
         <button
           name="next"
           onClick={changeFormMiddleWare}
-          className="tracking-wider bg-green_hues-600 p-3 w-80 font-sans spacing font-bold text-white rounded"
+          className="tracking-wider bg-green_hues-600 p-3 w-1/3 font-sans spacing font-bold text-white rounded"
         >
           SUIVANT
         </button>

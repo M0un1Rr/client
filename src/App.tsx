@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import Header from "./components/header";
 import MainContent from "./components/mainContent";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./components/errorPage";
 import Validation from "./components/formulaireComplet";
+
+export const AppContext = createContext<any>({});
 
 function App() {
   const [state, setState] = useState({
@@ -21,17 +23,17 @@ function App() {
     },
     banques: {
       banque1: {
-        nom_banque1: "1",
+        nom_banque1: "",
         contact_banque1: "",
         telephone1: "",
       },
       banque2: {
-        nom_banque2: "2",
+        nom_banque2: "",
         contact_banque2: "",
         telephone2: "",
       },
       banque3: {
-        nom_banque3: "3",
+        nom_banque3: "",
         contact_banque3: "",
         telephone3: "",
       },
@@ -64,6 +66,7 @@ function App() {
     },
     fichiers: [],
   });
+
   const [completed, setCompleted] = useState(false);
 
   const completedTrue = () => {
@@ -102,7 +105,9 @@ function App() {
   return (
     <main className="w-full h-full">
       <Header />
-      <RouterProvider router={router} />
+      <AppContext.Provider value={{ state }}>
+        <RouterProvider router={router} />
+      </AppContext.Provider>
     </main>
   );
 }

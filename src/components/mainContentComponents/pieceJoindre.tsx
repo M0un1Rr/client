@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import Loading from "../extraComponents/loadingBar";
 import MyDropzone from "./dropzone";
+import { AppContext } from "../../App";
 
 const PieceJoindre = (props: any) => {
   const state: Array<File> = props.state;
   const removeFile = props.removeFile;
   const addFiles = props.addFiles;
   const styles = props.styles;
-  const handleInput = props.handleInput;
   const changeForm = props.changeForm;
-  const completed = props.completed;
   const completedTrue = props.completedTrue;
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const handleSubmitMiddleWare = (e: any) => {
@@ -29,11 +30,18 @@ const PieceJoindre = (props: any) => {
       }
       if (y != 3) {
         alert(`Respecter le format de nommage des fichiers:`);
+        return;
+      } else {
+        console.log("Bien");
       }
     }
-    setLoading(true);
     completedTrue();
+    navigate("/validation");
   };
+  const context = useContext(AppContext);
+  useEffect(() => {
+    console.log(context);
+  }, []);
 
   return (
     <fieldset className={styles.fieldset}>
@@ -65,7 +73,6 @@ const PieceJoindre = (props: any) => {
             PRECEDENT
           </button>
           <button
-            type="submit"
             onClick={handleSubmitMiddleWare}
             className="tracking-wider bg-green_hues-600 p-3 w-80 font-sans spacing font-bold text-white rounded"
           >

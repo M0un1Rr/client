@@ -38,9 +38,11 @@ const InfoEnt = (props: any) => {
     const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   }
+  styles.fieldset = `${styles.fieldset}`;
+  styles.input = `${styles.input} col-span-2 sm:col-span-1`;
 
   return (
-    <fieldset className={styles.fieldset}>
+    <fieldset className={`${styles.fieldset}`}>
       <legend className={styles.legend}>
         <u>INFORMATION SUR L'ENTREPRISE</u>
       </legend>
@@ -71,9 +73,7 @@ const InfoEnt = (props: any) => {
         required
       >
         {!state.forme_juridique && (
-          <option value={""} selected>
-            --Forme Juridique--
-          </option>
+          <option value={""}>--Forme Juridique--</option>
         )}
         <option value={"SARL"}>SARL</option>
         <option value={"SA"}>SA</option>
@@ -91,7 +91,7 @@ const InfoEnt = (props: any) => {
       <input
         onChange={handleInput}
         name={"activite_principale"}
-        className={styles.input + " col-span-2"}
+        className={styles.input + " md:col-span-2"}
         type={"text"}
         placeholder={"Activite principale de l'entreprise"}
         value={state.activite_principale}
@@ -127,27 +127,35 @@ const InfoEnt = (props: any) => {
             required
             checked={state.groupe == "true" ? true : false}
           />
-          <label htmlFor="oui"> Oui</label>
-          <label
-            htmlFor="maison_mere"
-            className={"" + (state.groupe != "true" && "hidden")}
-          >
+          <label htmlFor="oui" className="font-medium ">
             {" "}
-            ,Nom de maison mere:{" "}
+            Oui
           </label>
-          <input
-            onChange={handleInput}
-            name={"maison_mere"}
-            className={
-              styles.input +
-              " ml-20 w-1/2 w-full" +
-              (state.groupe != "true" && " hidden")
-            }
-            type={"text"}
-            placeholder={"Maison mere"}
-            value={state.maison_mere}
-            required={state.groupe == "true" ? true : false}
-          />
+          <br />
+          <div className="flex flex-col md:flex-row md:place-items-center">
+            <label
+              htmlFor="maison_mere"
+              className={
+                "font-normal text-sm whitespace-nowrap " +
+                (state.groupe != "true" && "hidden")
+              }
+            >
+              Nom de Maison Mère:{" "}
+            </label>
+            <input
+              onChange={handleInput}
+              name={"maison_mere"}
+              className={
+                styles.input +
+                " self-center w-full md:ml-4 md:grow " +
+                (state.groupe != "true" && " hidden")
+              }
+              type={"text"}
+              placeholder={"Maison mere"}
+              value={state.maison_mere}
+              required={state.groupe == "true" ? true : false}
+            />
+          </div>
         </div>
         <input
           onChange={handleInput}
@@ -157,13 +165,16 @@ const InfoEnt = (props: any) => {
           value="false"
           checked={state.groupe == "false" ? true : false}
         />
-        <label htmlFor="non"> Non</label>
+        <label htmlFor="non" className="font-medium">
+          {" "}
+          Non
+        </label>
       </fieldset>
       <div className="col-span-2 w-full flex place-items-center flex-col gap-4">
         <input
           onChange={handleInput}
           name={"nom_gerant"}
-          className={styles.input + " w-1/2"}
+          className={styles.input + " w-full md:w-2/3"}
           type={"text"}
           placeholder={"Nom de gerant"}
           value={state.nom_gerant}
