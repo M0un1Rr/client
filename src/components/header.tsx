@@ -2,11 +2,14 @@ import { useState } from "react";
 
 function Header() {
   return (
-    <nav className="w-100 p-5 border-b-2 flex-1">
-      <h1 className="font-sans font-semibold">
-        <span className="text-blue-700 font-bold">Meski</span> Holding
-      </h1>
-      <div><i></i></div>
+    <nav className="w-full p-1 border-b-2 flex-1 h-20 md:h-24 overflow-hidden">
+      <img
+        src="meski_logo.jpeg"
+        className="h-full m-auto sm:m-0 cursor-pointer"
+        onClick={() => {
+          document.location.href = "/";
+        }}
+      />
     </nav>
   );
 }

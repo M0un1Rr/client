@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const InfoEnt = (props: any) => {
   const state = props.state;
@@ -59,9 +60,14 @@ const InfoEnt = (props: any) => {
         onChange={handleInput}
         name={"annee_creation"}
         className={styles.input}
-        type={"Date"}
         max={maxDate}
         placeholder={"Année de création"}
+        onFocus={(e) => {
+          e.target.type = "date";
+        }}
+        onBlur={(e) => {
+          e.target.type = "text";
+        }}
         value={state.annee_creation}
         required
       />

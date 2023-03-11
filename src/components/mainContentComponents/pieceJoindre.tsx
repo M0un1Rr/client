@@ -18,22 +18,6 @@ const PieceJoindre = (props: any) => {
     if (state.length < 2) {
       alert("Télécharger les deux fichiers");
       return;
-    } else if (state.length == 2) {
-      let y = 0;
-      for (let x in state) {
-        if (state[x].name == "derniere_liasse_fiscale.pdf") {
-          y = y + 1;
-        }
-        if (state[x].name == "modele_j.pdf") {
-          y = y + 2;
-        }
-      }
-      if (y != 3) {
-        alert(`Respecter le format de nommage des fichiers:`);
-        return;
-      } else {
-        console.log("Bien");
-      }
     }
     completedTrue();
     navigate("/validation");
@@ -52,11 +36,9 @@ const PieceJoindre = (props: any) => {
         <p className="font-semibold">
           Derniere Liasse Fiscale <span className="text-red-600">*</span>
         </p>
-        <p className="">Format: derniere_liasse_fiscale.pdf </p>
         <p className="font-semibold">
           Modele J <span className="text-red-600">*</span>
         </p>
-        <p className="">format: modele_j.pdf</p>
       </div>
       <MyDropzone state={state} addFiles={addFiles} removeFile={removeFile} />
       {loading ? (

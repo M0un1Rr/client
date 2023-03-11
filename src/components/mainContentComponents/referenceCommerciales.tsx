@@ -68,7 +68,12 @@ const RefComr = (props: any) => {
             onChange={handleInput}
             name={`date_debut_relation${commerciale}`}
             className={styles.input}
-            type={"Date"}
+            onFocus={(e) => {
+              e.target.type = "date";
+            }}
+            onBlur={(e) => {
+              e.target.type = "text";
+            }}
             max={maxDate}
             placeholder={"Date Debut de Relation"}
             value={

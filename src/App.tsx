@@ -2,8 +2,8 @@ import { createContext, useState } from "react";
 import Header from "./components/header";
 import MainContent from "./components/mainContent";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ErrorPage from "./components/errorPage";
 import Validation from "./components/formulaireComplet";
+import Inserted from "./components/inserted";
 
 export const AppContext = createContext<any>({});
 
@@ -66,7 +66,10 @@ function App() {
     },
     fichiers: [],
   });
-
+  const [successful, setSuccessful] = useState(false);
+  const setSuccessTrue = () => {
+    setSuccessful(true);
+  };
   const [completed, setCompleted] = useState(false);
 
   const completedTrue = () => {
@@ -88,7 +91,6 @@ function App() {
           completedTrue={completedTrue}
         />
       ),
-      errorElement: <ErrorPage />,
     },
     {
       path: "/validation",
@@ -97,8 +99,13 @@ function App() {
           state={state}
           completed={completed}
           completedTrue={completedTrue}
+          setSuccessTrue={setSuccessTrue}
         />
       ),
+    },
+    {
+      path: "/inserted",
+      element: <Inserted successful={successful} />,
     },
   ]);
 

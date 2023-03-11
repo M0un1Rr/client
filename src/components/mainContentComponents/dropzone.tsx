@@ -16,7 +16,18 @@ function MyDropzone(props: any) {
   function handleFileSelect(event: ChangeEvent<HTMLInputElement>) {
     if (files.length == 2) return;
     const selectedFiles = Array.from(event.target.files as FileList);
-    if (selectedFiles.length > 0 && selectedFiles.length < 3) {
+    let filesExceedMaxSize = false; // initialize flag to false
+    selectedFiles.forEach((file) => {
+      if (file.size > 1000000) {
+        alert("La taille maximale du fichier doit être inférieure à 1 Mo");
+        filesExceedMaxSize = true; // set flag to true if any file exceeds max size
+      }
+    });
+    if (
+      !filesExceedMaxSize &&
+      selectedFiles.length > 0 &&
+      selectedFiles.length < 3
+    ) {
       setFiles((prevFiles) => [
         ...prevFiles,
         ...selectedFiles.slice(0, 2 - prevFiles.length),
@@ -33,7 +44,18 @@ function MyDropzone(props: any) {
     if (files.length == 2) return;
     event.preventDefault();
     const droppedFiles = Array.from(event.dataTransfer.files);
-    if (droppedFiles.length > 0 && droppedFiles.length < 3) {
+    let filesExceedMaxSize = false; // initialize flag to false
+    droppedFiles.forEach((file) => {
+      if (file.size > 1000000) {
+        alert("La taille maximale du fichier doit être inférieure à 1 Mo");
+        filesExceedMaxSize = true; // set flag to true if any file exceeds max size
+      }
+    });
+    if (
+      !filesExceedMaxSize &&
+      droppedFiles.length > 0 &&
+      droppedFiles.length < 3
+    ) {
       setFiles((prevFiles) => [
         ...prevFiles,
         ...droppedFiles.slice(0, 2 - prevFiles.length),
@@ -48,15 +70,16 @@ function MyDropzone(props: any) {
       fileInputRef.current.click();
     }
   }
+
   useEffect(() => {
     setFiles(state);
   }, []);
 
   return (
-    <div className="col-span-2 flex flex-col place-content-center place-items-center overflow-hidden border-4 border-black rounded-lg gap-2 p-10 relative">
+    <div className="col-span-2 flex flex-col place-content-center place-items-center overflow-hidden border-4 border-black rounded-lg gap-2 p-5 relative">
       {files.length >= 0 && files.length < 2 && (
         <div
-          className="col-span-2 flex flex-col place-content-center place-items-center overflow-hidden border-4 border-green_hues-700 rounded-lg gap-2 p-10 relative"
+          className="col-span-2 flex flex-col place-content-center place-items-center overflow-hidden border-4 border-green_hues-700 rounded-lg gap-2 p-4 relative"
           onDragOver={handleDragOver}
           onDrop={handleDrop}
           onClick={handleClick}
@@ -72,7 +95,7 @@ function MyDropzone(props: any) {
             hidden
             onChange={handleFileSelect}
             ref={fileInputRef}
-            accept=".pdf"
+            accept=".pdf,.doc,.docx,.jpeg,.jpg,.png"
           />
           <p className="p-3 text-center">
             Faites glisser et déposez des fichiers ici, ou cliquez pour
@@ -80,17 +103,19 @@ function MyDropzone(props: any) {
           </p>
         </div>
       )}
-      {files.map((file) => (
-        <li className={"list-none"} key={file.name}>
-          {file.name}{" "}
-          <span
-            className="text-red-600 font-bold cursor-pointer"
-            onClick={() => handleRemove(file)}
-          >
-            X
-          </span>
-        </li>
-      ))}
+      <ul className="flex flex-col w-full overflow-hidden break-words">
+        {files.map((file) => (
+          <li className={"list-none text-sm"} key={file.name}>
+            {file.name}{" "}
+            <span
+              className="text-red-600 font-bold cursor-pointer"
+              onClick={() => handleRemove(file)}
+            >
+              X
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
