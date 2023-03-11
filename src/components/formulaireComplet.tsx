@@ -54,7 +54,7 @@ const Validation = (props: any) => {
       // Make a POST request to the server using Axios:
       setSent(true);
       axios
-        .post("http://localhost:3000/api/client", formData, {
+        .post("/api/client", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
